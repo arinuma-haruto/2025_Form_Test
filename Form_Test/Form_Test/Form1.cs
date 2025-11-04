@@ -30,7 +30,12 @@ namespace Form_Test
                 for (int j = 0; j < BOARD_SIZE_Y; j++)
                 {
                     //インスタンスの生成
-                    TestButton testButton = new TestButton(new Point(BUTTON_SIZE_X * i, BUTTON_SIZE_Y * j), new Size(BUTTON_SIZE_X, BUTTON_SIZE_Y), "");
+                    TestButton testButton =
+                        new TestButton(
+                            this,
+                            i,j,
+                        new Point(BUTTON_SIZE_X * i, BUTTON_SIZE_Y * j), 
+                        new Size(BUTTON_SIZE_X, BUTTON_SIZE_Y), "");
                    
                     //配列にボタンの参照を追加
                     _buttonArray[j, i] = testButton;
@@ -41,16 +46,20 @@ namespace Form_Test
                 }
             }
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        public TestButton GetTestButton(int x,int y)
         {
-            MessageBox.Show("C#の世界へようこそ！");
+            //配列外参照対策
+            if (x <0 || x >= BOARD_SIZE_X) return null;
+            if (x < 0 || y >= BOARD_SIZE_Y) return null;
+
+            return _buttonArray[y, x];
         }
 
-        private void hogehoge1_Click(object sender, EventArgs e)
+        private void hogehoge1_click(object sender, EventArgs e)
         {
             MessageBox.Show("");
         }
+
     }
 }
 
