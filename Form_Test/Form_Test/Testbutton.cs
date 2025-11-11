@@ -14,7 +14,7 @@ namespace Form_Test
         private Color onColor = Color.LightBlue;
         private Color offColor = Color.Blue;
         private bool _enable;
-
+        
         public void SetEnable(bool on)
         {
             _enable = on;
@@ -40,13 +40,19 @@ namespace Form_Test
         private int _x;
 
         private int _y;
-    public TestButton(Form1 form1,int x, int y,Point position, Size size, string text)
+
+        private int tate;
+
+        private int yoko;
+    public TestButton(Form1 form1,int x, int y,int BOARD_X,int BOARD_Y,Point position, Size size, string text)
         {
             _form1 = form1;
             _x = x;
             _y = y;
             //Form1の参照を保管
             _form1 = form1;
+            tate = BOARD_X;
+            yoko = BOARD_Y;
 
             //ボタンの位置を設定
             Location = position;
@@ -66,10 +72,33 @@ namespace Form_Test
             //楽な書き方
               _form1.GetTestButton(_x, _y)?.Toggle();
               _form1.GetTestButton(_x+1, _y)?.Toggle();
-              _form1.GetTestButton(_x+2, _y)?.Toggle();
+              _form1.GetTestButton(_x-1, _y)?.Toggle();
               _form1.GetTestButton(_x, _y+1)?.Toggle();
-              _form1.GetTestButton(_x, _y+2)?.Toggle();
+              _form1.GetTestButton(_x, _y-1)?.Toggle();
+            //ここからクリア判定
+            int i=0, j;
 
+            Color same = _form1.GetTestButton(0, 0).BackColor;
+
+            bool s = true;
+            while(i < tate && s)
+            {
+                for(j = 0; j < yoko;j++)
+                {
+                    if(same != _form1.GetTestButton(i,j).BackColor)
+                    {
+                        s = false;
+                        break;
+
+                    }
+                }
+                i++;
+            }
+
+            if (s == true)
+            {
+                MessageBox.Show("クリアおめでとう！");
+            }
            
             
         }

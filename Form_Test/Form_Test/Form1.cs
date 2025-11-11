@@ -33,10 +33,10 @@ namespace Form_Test
                     TestButton testButton =
                         new TestButton(
                             this,
-                            i,j,
-                        new Point(BUTTON_SIZE_X * i, BUTTON_SIZE_Y * j), 
+                            i, j, BOARD_SIZE_X, BOARD_SIZE_Y,
+                        new Point(BUTTON_SIZE_X * i, BUTTON_SIZE_Y * j),
                         new Size(BUTTON_SIZE_X, BUTTON_SIZE_Y), "");
-                   
+
                     //配列にボタンの参照を追加
                     _buttonArray[j, i] = testButton;
 
@@ -45,21 +45,43 @@ namespace Form_Test
 
                 }
             }
+
+            Random rand = new Random();
+
+            for (int i = 0; i < 100; i++)
+            {
+                int x = rand.Next(0, BOARD_SIZE_X);
+                int y = rand.Next(0, BOARD_SIZE_Y);
+
+                GetTestButton(x, y)?.Toggle();
+                GetTestButton(x + 1, y)?.Toggle();
+                GetTestButton(x - 1, y)?.Toggle();
+                GetTestButton(x, y + 1)?.Toggle();
+                GetTestButton(x, y - 1)?.Toggle();
+            }
+
         }
-        public TestButton GetTestButton(int x,int y)
+
+
+        public TestButton GetTestButton(int x, int y)
         {
             //配列外参照対策
-            if (x <0 || x >= BOARD_SIZE_X) return null;
-            if (x < 0 || y >= BOARD_SIZE_Y) return null;
+            if (x < 0 || x >= BOARD_SIZE_X) return null;
+            if (y < 0 || y >= BOARD_SIZE_Y) return null;
 
             return _buttonArray[y, x];
         }
 
+       
         private void hogehoge1_click(object sender, EventArgs e)
+            
         {
+            
             MessageBox.Show("");
         }
 
+        
+      
     }
 }
 
